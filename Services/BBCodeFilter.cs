@@ -57,14 +57,18 @@ namespace Piedone.BBCode.Services
                     new BBTag("code", "<code class=\"bbcode-code\">", "</code>"), 
                     new BBTag("img", "<img src=\"${content}\" class=\"bbcode-image\" />", "", false, true), 
                     new BBTag("quote", "<blockquote class=\"bbcode-quote\">", "</blockquote>"), 
-                    new BBTag("list", "<ul class=\"bbcode-list\">", "</ul>"), 
-                    new BBTag("*", "<li>", "</li>", true, false), 
+                    //new BBTag("list", "<ul class=\"bbcode-list\">", "</ul>"), 
+                    //new BBTag("*", "<li>", "</li>", true, false), 
                     new BBTag("sup", "<sup class=\"bbcode-superscript\">", "</sup>"), 
                     new BBTag("sub", "<sub class=\"bbcode-subscript\">", "</sub>"), 
-                    new BBTag("url", "<a href=\"${href}\" class=\"bbcode-url\">", "</a>", new BBAttribute("href", ""), new BBAttribute("href", "href")), 
+                    new BBTag("url", "<a href=\"${href}\" class=\"bbcode-url\">", "</a>", new BBAttribute("href", ""), new BBAttribute("href", "href"))
                 });
 
-            return parser.ToHtml(text);
+
+            text = parser.ToHtml(text);
+            text = "<p>" + text.Replace(Environment.NewLine, "</p>" + Environment.NewLine + "<p>") + "</p>";
+
+            return text;
         }
     }
 }
