@@ -1,0 +1,48 @@
+﻿.bbcode-strong
+{
+    font-weight: bold;
+}
+
+.bbcode-italic
+{
+    font-style: italic;
+}
+
+.bbcode-underline
+{
+    text-decoration: underline;
+}
+
+.bbcode-strikethrough
+{
+    text-decoration: line-through;
+}
+
+.bbcode-code
+{
+}
+
+.bbcode-image
+{
+    display: inline-block;
+}
+
+.bbcode-quote
+{
+}
+
+.bbcode-list
+{
+}
+
+.bbcode-superscript
+{
+}
+
+.bbcode-subscript
+{
+}
+
+.bbcode-url
+{
+}
