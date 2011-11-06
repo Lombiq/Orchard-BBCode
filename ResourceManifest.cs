@@ -8,7 +8,7 @@ namespace Piedone.BBCode
         public void BuildManifests(ResourceManifestBuilder builder)
         {
             var manifest = builder.Add();
-            manifest.DefineStyle("Piedone_BBCode").SetUrl("piedone-bbcode-styles.css");
+            manifest.DefineStyle("BBCode").SetUrl("piedone-bbcode-styles.css");
         }
     }
 }

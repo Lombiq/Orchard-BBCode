@@ -80,6 +80,7 @@
   <ItemGroup>
     <Compile Include="ResourceManifest.cs" />
     <Compile Include="Services\BBCodeFilter.cs" />
+    <Compile Include="Services\IBBCodeFilter.cs" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
