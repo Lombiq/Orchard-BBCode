@@ -3,6 +3,7 @@ using Orchard.UI.Resources;
 
 namespace Piedone.BBCode
 {
+    [OrchardFeature("Piedone.BBCode")]
     public class ResourceManifest : IResourceManifestProvider
     {
         public void BuildManifests(ResourceManifestBuilder builder)

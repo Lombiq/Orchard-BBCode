@@ -12,6 +12,7 @@ namespace Piedone.BBCode.Services
 {
     // OrchardSuppressDependency is necessary as otherwise the built-in filter causes troubles
     [OrchardSuppressDependency("Orchard.Core.Common.Services.BbcodeFilter")]
+    [OrchardFeature("Piedone.BBCode")]
     public class BBCodeFilter : IBBCodeFilter
     {
         private readonly IResourceManager _resourceManager;
@@ -100,10 +101,10 @@ namespace Piedone.BBCode.Services
         private void LoadDefaultTags()
         {
             tags = new Dictionary<string, BBTag>(10);
-            tags["b"] = new BBTag("b", "<strong class=\"bbcode-strong\">", "</strong>");
-            tags["i"] = new BBTag("i", "<span class=\"bbcode-italic\">", "</span>");
-            tags["u"] = new BBTag("u", "<span class=\"bbcode-underline\">", "</span>");
-            tags["s"] = new BBTag("s", "<span class=\"bbcode-strikethrough\">", "</span>");
+            tags["b"] = new BBTag("b", "<strong class=\"bbcode-bold\">", "</strong>");
+            tags["i"] = new BBTag("i", "<em class=\"bbcode-italic\">", "</em>");
+            tags["u"] = new BBTag("u", "<em class=\"bbcode-underline\">", "</em>");
+            tags["s"] = new BBTag("s", "<del class=\"bbcode-strikethrough\">", "</del>");
             tags["code"] = new BBTag("code", "<code class=\"bbcode-code\">", "</code>");
             tags["img"] = new BBTag("img", "<img src=\"${content}\" class=\"bbcode-image\" />", "", false, true);
             tags["quote"] = new BBTag("quote", "<blockquote class=\"bbcode-quote\">", "</blockquote>");
