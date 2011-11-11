@@ -23,6 +23,16 @@ namespace Piedone.BBCode.Services
         /// </summary>
         private static BBCodeParser _parser;
 
+        /// <summary>
+        /// The current instance for usage in html helper
+        /// </summary>
+        public static BBCodeFilter Instance { get; set; }
+
+        public BBCodeFilter()
+        {
+            Instance = this;
+        }
+
         public void AddTag(BBTag tag)
         {
             TryLoadDefaultTags(); // This is so defaults can be modified
