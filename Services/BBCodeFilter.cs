@@ -7,6 +7,7 @@ using CodeKicker.BBCode;
 using Orchard.Caching;
 using Orchard.Environment.Extensions;
 using Orchard.UI.Resources;
+using Piedone.BBCode.Filters;
 
 namespace Piedone.BBCode.Services
 {
@@ -15,19 +16,12 @@ namespace Piedone.BBCode.Services
     [OrchardFeature("Piedone.BBCode")]
     public class BBCodeFilter : IBBCodeFilter
     {
-        private readonly IResourceManager _resourceManager;
         private Dictionary<string, BBTag> _tags;
-        private bool styleIncluded = false;
 
         /// <summary>
         /// Parser instance cache
         /// </summary>
         private static BBCodeParser _parser;
-
-        public BBCodeFilter(IResourceManager resourceManager)
-        {
-            _resourceManager = resourceManager;
-        }
 
         public void AddTag(BBTag tag)
         {
@@ -50,11 +44,7 @@ namespace Piedone.BBCode.Services
 
             if (flavor.Equals("bbcode", StringComparison.OrdinalIgnoreCase))
             {
-                if (!styleIncluded)
-                {
-                    _resourceManager.Require("stylesheet", "BBCode");
-                    styleIncluded = true;
-                }
+                BBCodeStyleFilter.RequireStylesheet = true;
                 return Parse(text);
             }
 

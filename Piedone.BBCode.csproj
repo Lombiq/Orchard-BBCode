@@ -78,6 +78,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Filters\BBCodeStyleFilter.cs" />
     <Compile Include="ResourceManifest.cs" />
     <Compile Include="Services\BBCodeFilter.cs" />
     <Compile Include="Services\IBBCodeFilter.cs" />
