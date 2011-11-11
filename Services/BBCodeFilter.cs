@@ -16,40 +16,31 @@ namespace Piedone.BBCode.Services
     public class BBCodeFilter : IBBCodeFilter
     {
         private readonly IResourceManager _resourceManager;
-        private Dictionary<string, BBTag> tags;
-
-        #region Caching fields
-        private readonly ICacheManager _cacheManager;
-        private readonly ISignals _signals;
-        private readonly string CachePrefix = "Piedone.BBCode.";
-        private readonly string ParserSignal = "Piedone.BBCode.Parser";
-        #endregion
-
+        private Dictionary<string, BBTag> _tags;
         private bool styleIncluded = false;
 
-        public BBCodeFilter(
-            IResourceManager resourceManager,
-            ICacheManager cacheManager, 
-            ISignals signals)
+        /// <summary>
+        /// Parser instance cache
+        /// </summary>
+        private static BBCodeParser _parser;
+
+        public BBCodeFilter(IResourceManager resourceManager)
         {
             _resourceManager = resourceManager;
-
-            _cacheManager = cacheManager;
-            _signals = signals;
         }
 
         public void AddTag(BBTag tag)
         {
             TryLoadDefaultTags(); // This is so defaults can be modified
-            tags[tag.Name] = tag;
-            TriggerParserChangedSignal();
+            _tags[tag.Name] = tag;
+            _parser = null;
         }
 
         public void RemoveTag(string name)
         {
             TryLoadDefaultTags(); // This is so defaults can be modified
-            tags.Remove(name);
-            TriggerParserChangedSignal();
+            _tags.Remove(name);
+            _parser = null;
         }
 
         public string ProcessContent(string text, string flavor)
@@ -80,47 +71,36 @@ namespace Piedone.BBCode.Services
 
         private BBCodeParser BuildParser()
         {
-            return _cacheManager.Get(CachePrefix + "Parser", ctx =>
-            {
-                MonitorParserChangedSignal(ctx);
-                
-                TryLoadDefaultTags();
+            if (_parser != null) return _parser;
 
-                return new BBCodeParser(
-                    ErrorMode.ErrorFree,
-                    null,
-                    tags.Select(kvp => kvp.Value).ToList());
-            });
+            TryLoadDefaultTags();
+
+            _parser = new BBCodeParser(
+                ErrorMode.ErrorFree,
+                null,
+                _tags.Select(kvp => kvp.Value).ToList());
+
+            return _parser;
         }
 
         private void TryLoadDefaultTags()
         {
-            if (tags == null) LoadDefaultTags();
+            if (_tags == null) LoadDefaultTags();
         }
 
         private void LoadDefaultTags()
         {
-            tags = new Dictionary<string, BBTag>(10);
-            tags["b"] = new BBTag("b", "<strong class=\"bbcode-bold\">", "</strong>");
-            tags["i"] = new BBTag("i", "<em class=\"bbcode-italic\">", "</em>");
-            tags["u"] = new BBTag("u", "<em class=\"bbcode-underline\">", "</em>");
-            tags["s"] = new BBTag("s", "<del class=\"bbcode-strikethrough\">", "</del>");
-            tags["code"] = new BBTag("code", "<code class=\"bbcode-code\">", "</code>");
-            tags["img"] = new BBTag("img", "<img src=\"${content}\" class=\"bbcode-image\" />", "", false, true);
-            tags["quote"] = new BBTag("quote", "<blockquote class=\"bbcode-quote\">", "</blockquote>");
-            tags["sup"] = new BBTag("sup", "<sup class=\"bbcode-superscript\">", "</sup>");
-            tags["sub"] = new BBTag("sub", "<sub class=\"bbcode-subscript\">", "</sub>");
-            tags["url"] = new BBTag("url", "<a href=\"${href}\" class=\"bbcode-url\">", "</a>", new BBAttribute("href", ""), new BBAttribute("href", "href"));
-        }
-
-        private void MonitorParserChangedSignal(AcquireContext<string> ctx)
-        {
-            ctx.Monitor(_signals.When(ParserSignal));
-        }
-
-        private void TriggerParserChangedSignal()
-        {
-            _signals.Trigger(ParserSignal);
+            _tags = new Dictionary<string, BBTag>(10);
+            _tags["b"] = new BBTag("b", "<strong class=\"bbcode-bold\">", "</strong>");
+            _tags["i"] = new BBTag("i", "<em class=\"bbcode-italic\">", "</em>");
+            _tags["u"] = new BBTag("u", "<em class=\"bbcode-underline\">", "</em>");
+            _tags["s"] = new BBTag("s", "<del class=\"bbcode-strikethrough\">", "</del>");
+            _tags["code"] = new BBTag("code", "<code class=\"bbcode-code\">", "</code>");
+            _tags["img"] = new BBTag("img", "<img src=\"${content}\" class=\"bbcode-image\" />", "", false, true);
+            _tags["quote"] = new BBTag("quote", "<blockquote class=\"bbcode-quote\">", "</blockquote>");
+            _tags["sup"] = new BBTag("sup", "<sup class=\"bbcode-superscript\">", "</sup>");
+            _tags["sub"] = new BBTag("sub", "<sub class=\"bbcode-subscript\">", "</sub>");
+            _tags["url"] = new BBTag("url", "<a href=\"${href}\" class=\"bbcode-url\">", "</a>", new BBAttribute("href", ""), new BBAttribute("href", "href"));
         }
     }
 }
