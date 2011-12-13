@@ -4,14 +4,15 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Piedone.BBCode.Services;
+using Orchard.Mvc.Html;
 
 namespace Piedone.BBCode.Extensions
 {
     public static class HtmlHelperExtensions
     {
-        public static string ParseBBCode(this HtmlHelper helper, string text)
+        public static string ParseBBCode(this HtmlHelper html, string text)
         {
-            return BBCodeFilter.Instance.Parse(text);
+            return html.Resolve<IBBCodeFilter>().Parse(text);
         }
     }
 }
