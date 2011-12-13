@@ -1,5 +1,4 @@
-﻿using System;
-using Orchard.Services;
+﻿using Orchard.Services;
 
 namespace Piedone.BBCode.Services
 {

@@ -2,7 +2,7 @@ Name: BBCode filter/flavor
 AntiForgery: enabled
 Author: Piedone
 Website: http://bbcodeorchard.codeplex.com/
-Version: 1.2
+Version: 1.2.2
 OrchardVersion: 1.3
 Description: Makes the usage of various BBCodes available by providing a filter and a html helper to parse them and adding a new text flavor (bbcode). Uses CodeKicker.BBCode parser.
 Features:

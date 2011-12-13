@@ -1,13 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using Orchard.Services;
 using CodeKicker.BBCode;
-using Orchard.Caching;
 using Orchard.Environment.Extensions;
-using Orchard.UI.Resources;
-using Piedone.BBCode.Filters;
 
 namespace Piedone.BBCode.Services
 {
