@@ -1,6 +1,7 @@
 ﻿using System.Web.Mvc;
 using Orchard.Mvc.Html;
 using Piedone.BBCode.Services;
+using Orchard;
 
 namespace Piedone.BBCode.Extensions
 {
@@ -8,7 +9,7 @@ namespace Piedone.BBCode.Extensions
     {
         public static string ParseBBCode(this HtmlHelper html, string text)
         {
-            return html.Resolve<IBBCodeFilter>().Parse(text);
+            return html.ViewContext.RequestContext.GetWorkContext().Resolve<IBBCodeFilter>().Parse(text);
         }
     }
 }
