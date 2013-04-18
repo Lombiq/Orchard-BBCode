@@ -32,17 +32,12 @@ namespace Piedone.BBCode.Services
             _parser = null;
         }
 
-        public string ProcessContent(string text, string flavor)
+        public string ProcessContent(string text)
         {
             if (String.IsNullOrEmpty(text))
-                return "";
+                return string.Empty;
 
-            if (flavor.Equals("bbcode", StringComparison.OrdinalIgnoreCase))
-            {
-                return Parse(text);
-            }
-
-            return text;
+            return Parse(text);
         }
 
         public string Parse(string text)
