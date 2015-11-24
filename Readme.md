@@ -20,19 +20,19 @@ You can set the flavor to "bbcode" (case-insensitive) on the Body of the content
 
 ### As a filter on arbitrary strings
 
-Just request an IBBCodeFilter instance in the constructor of the class you want to use it (this is standard dependency injection in Orchard) and use the object's Parse() method.  
+Just request an IBBCodeFilter instance in the constructor of the class you want to use it (this is standard dependency injection in Orchard) and use the object's `Parse()` method.  
 **Note that the string to be parsed is html encoded before parsing, therefore the result will be html encoded too!**
 
 ### As an html helper
 
-Add the @using Piedone.BBCode.Extensions; directive to the top of the Razor view. Then you can use the new Html.ParseBBCode() helper to parse BB codes in-place.  
+Add the `@using Piedone.BBCode.Extensions;` directive to the top of the Razor view. Then you can use the new `Html.ParseBBCode()` helper to parse BB codes in-place.  
 **Note that the string to be parsed is html encoded before parsing, therefore the result will be html encoded too!**
 
 
 ## Supported tags
 
 The default tags are: b, i, u, s, code, img, quote, sup, sub, url (all in the standard BBCode form). Use the [BBCode test text](Docs/BBCodeTestText.md) to test the parser.
-You can add new tags or remove defaults with the IBBCodeFilter's AddTag() and RemoveTag() methods. Since the filter uses [Codekicker.BBCode](http://bbcode.codeplex.com) internally, you have to supply AddTag() with a BBTag object.
+You can add new tags or remove defaults with the IBBCodeFilter's `AddTag()` and `RemoveTag()` methods. Since the filter uses [Codekicker.BBCode](http://bbcode.codeplex.com) internally, you have to supply `AddTag()` with a BBTag object.
 
 
 ## Styling
