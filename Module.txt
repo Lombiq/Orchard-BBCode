@@ -3,7 +3,7 @@ AntiForgery: enabled
 Author: Piedone
 Website: https://github.com/Lombiq/Orchard-BBCode
 Version: 1.2.4
-OrchardVersion: 1.9.1
+OrchardVersion: 1.9.2
 Description: Makes the usage of various BBCodes available by providing a filter and a html helper to parse them and adding a new text flavor (bbcode). Uses CodeKicker.BBCode parser.
 Features:
     Piedone.BBCode:
